@@ -1,0 +1,22 @@
+{
+    "name": "MyPwa",
+    "short_name": "MyPwa",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#4db6ac",
+    "theme_color": " #4db6ac",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "face.png",
+            "type": "image/png",
+            "sizes": "144x144",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "bigface.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
