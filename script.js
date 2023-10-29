@@ -1,3 +1,8 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+};
+
+
 numberbar.innerText = 0;
 
 function num1() {
