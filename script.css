@@ -1,0 +1,47 @@
+.container {
+display: grid;
+grid-template-columns: 70px 70px 70px 70px;
+grid-template-rows: 70px 70px 70px 70px;
+grid-gap: 10px;
+}
+.container-button {
+font-weight: bold;
+font-size: 40px;
+background-color: darkgray;
+border-radius: 15px;
+}
+.container-button:hover {
+background-color: gray;
+}
+.equal {
+background-color: goldenrod;
+}
+.operator {
+background-color:darkcyan;
+}
+.extra {
+background-color:darkviolet;
+}
+
+#numberbar {
+border: black solid;
+background: lightblue;
+font-size: 60px;
+width: 310px;
+text-align: right;
+border-radius: 15px;
+}
+
+body {
+    background: black;
+    max-width: max-content;
+    margin: auto;
+}
+
+#calculator {
+background: rgb(3, 5, 160);
+border: black solid;
+padding: 15px 15px;
+border-radius: 15px;
+}
+
