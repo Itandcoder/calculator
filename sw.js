@@ -12,8 +12,8 @@ const assets = [
     "style.css",
     "manifest.json",
     "sw.js",
-    "bigface.png",
-    "face.png"
+    "bigicon.png",
+    "icon.png"
 ]
 
 
