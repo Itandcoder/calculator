@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+  <title>Points Allowance Calculator</title>
+</head>
+<body>
+    
+<!--  Nutrition  -->
+
+    <h5 class ="appTitle">Allowance Pts Calculator</h5>
+    <div id="nutritionDivision">
+      <form id="allowancePoints" onsubmit="allowancePts(this);">
+        <select id="gender">
+          <option value="8">male</option>
+          <option value="2">female</option>
+          <option value="7">breastfeeding partially</option>
+          <option value="12">solely nursing</option>
+        </select>
+        <select id="age">
+          <option value="4">age 17 - 26</option>
+          <option value="3">age 27 - 37</option>
+          <option value="2">age 38 - 47</option>
+          <option value="1">age 48 - 58</option>
+          <option value="0">age 59 and up</option>
+        </select>
+        <select id="height">
+          <option value="0">hegiht up to 5'0"</option>
+          <option value="1">5'1" to 5'10"</option>
+          <option value="2">5'11" and up</option>
+        </select>
+        <select id="activity">
+          <option value="0">mostly sitting</option>
+          <option value="2">mostly standing</option>
+          <option value="4">mostly walking</option>
+          <option value="6">hard physical labor</option>
+        </select>
+        <h6>First two digits of weight. Ex. 23 of 230.</h6>
+        <input id="weightDigits" type="text">
+        <button id="submitButton" type="submit">Submit</button>
+      </form>
+    </div>
+
+    <button class="bigNavButton" type="button" onclick='location.href="index.html"'>Back</button><br>
+
+    <p id="allowanceRegistered">Allowance Points Registered!</p>
+
+    <ul id="menu">
+      <a href="index.html" style="color: white;">Calc</a>
+      <a href="list.html">List</a>
+      <a href="count.html">Count</a>
+    </ul>
+     
+  <script src="script.js"></script>
+  <script>
+    // ALLOWANCE POINTS
+    function allowancePts(data) {
+      event.preventDefault();
+      let genderPts = parseInt(data.gender.value);
+      let agePts = parseInt(data.age.value);
+      let heightPts = parseInt(data.height.value);
+      let activityPts = parseInt(data.activity.value);
+      let weightPts = parseInt(data.weightDigits.value);
+      
+      let allowPts = genderPts + agePts + heightPts + activityPts + weightPts;
+
+      localStorage.setItem('allowPts', allowPts);
+
+      // notify on screen
+      let itemAdded = document.getElementById('allowanceRegistered');
+      itemAdded.style.color = 'black';
+      setInterval(() => {itemAdded.style.color = 'rgb(112, 148, 185)'}, 3000);
+    }
+  </script>
+</body>
+</html>

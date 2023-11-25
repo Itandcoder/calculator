@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+  <title>Daily Point Counter</title>
+</head>
+<body>
+  
+<div id="countSection">
+  <h6 class="counterLine">Current daily allowance is:</h6><div id="dailyAllowancePts" class="counterLine">0</div>
+  <h6 class="counterLine">Today's ongoing count is:</h6><div id="ongoingCount" class="counterLine">0</div>
+</div>
+
+<p id="resetLine">Confirm, Reset again or Clear.</p>
+
+<!--  Table  -->
+<div id="tableFrameCount">
+  <table id="table">
+    <thead>
+      <tr>
+      <td>Description</td>
+      <td>Points</td>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+  </div>
+
+  <div id="listButtons">
+  <button class="bigCountButton" onclick="deleteRow();">Remove</button>
+  <button class="bigCountButton" onclick="location.reload();">Clear</button>
+  <button class="bigCountButton" onclick="resetCount();">Reset</button>
+
+  </div>
+
+  <ul id="menu">
+    <a href="index.html">Calc</a>
+    <a href="list.html">List</a>
+    <a href="count.html" style="color: white;">Count</a>
+  </ul>
+
+<script src="script.js"></script>
+<script>
+  // LIST
+  // Get input data from form
+  let countArray = JSON.parse(localStorage.getItem('countList'));
+  for(i in countArray) {
+    // Create row and cell for table
+    const row = document.createElement('tr');
+    row.setAttribute("onclick", "getItem(this);");
+    const cell1 = document.createElement('td');
+    const cell2 = document.createElement('td');
+
+    // Append cells to row
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+
+    // Insert data to cells
+    cell1.innerHTML = countArray[i].desc;
+    cell2.innerHTML = countArray[i].pts;
+
+    // Selet table
+    const dataTable = document.getElementById('tableBody');
+
+    // Insert constructed row to table
+    dataTable.appendChild(row);
+  };
+
+  let count = 0;
+  let lineIndex;
+  let rowSelected;
+  function getItem(data) {
+    count += 1;
+    if (count == 1) {
+      lineIndex = data.rowIndex;
+      let space1 = document.querySelector('table').rows[lineIndex].cells[0].innerHTML;
+      let space2 = document.querySelector('table').rows[lineIndex].cells[1].innerHTML;
+      rowSelected = document.querySelector('table').rows[lineIndex];
+      rowSelected.style.backgroundColor = 'gray';
+    }
+  };
+
+  function deleteRow() {
+    let countArray = JSON.parse(localStorage.getItem('countList'));
+    countArray.splice(lineIndex - 1, 1);    
+
+    localStorage.setItem('countList', JSON.stringify(countArray));
+    location.reload();
+  };  
+  
+  function clearSelection() {
+    location.reload();
+    count = 0;
+    resetConfirmation = 0;
+    () => {resetLine.style.color = 'rgb(112, 148, 185)'};
+  };
+  // Display allowance
+  let allowPtsData = localStorage.getItem('allowPts');
+  parseFloat(allowPtsData);
+  document.getElementById('dailyAllowancePts').innerHTML = allowPtsData;
+
+  // Ongoing account
+  let countArrayList = JSON.parse(localStorage.getItem('countList'));
+  let totaPts = 0.00;
+  for( i in countArrayList) {
+    totaPts += parseFloat(countArrayList[i]["pts"]); 
+  }
+  document.getElementById('ongoingCount').innerHTML = totaPts;
+  if (allowPtsData < totaPts) {
+    document.getElementById('ongoingCount').style.color = 'darkred';
+  }
+  let resetConfirmation = 0;
+  function resetCount() {
+    resetLine.style.color = 'rgba(255, 255, 0, 0.89)';
+    resetConfirmation += 1;
+    if (resetConfirmation == 2) {
+    localStorage.setItem('countList', 0);
+    location.reload();
+    resetLine.style.color = 'rgb(112, 148, 185)';
+    }
+  }
+</script>
+</body>
+</html>

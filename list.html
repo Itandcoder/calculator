@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+  <title>List</title>
+</head>
+<body>
+  
+<!--  Table  -->
+  <div id="tableFrame">
+  <table id="table">
+    <thead>
+      <tr>
+      <td>Description</td>
+      <td>Points</td>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+  </div>
+
+  <div id="listButtons">
+  <button class="bigButton" onclick="deleteRow();">Del</button>
+  <button class="bigButton" onclick="clearSelection();">Clear</button>
+  <button class="bigButton" onclick="addToCountList();">Count</button>
+
+  </div>
+
+  <ul id="menu">
+    <a href="index.html">Calc</a>
+    <a href="list.html" style="color: white;">List</a>
+    <a href="count.html">Count</a>
+  </ul>
+
+<script src="script.js"></script>
+<script>
+  // LIST
+  // Get input data from form
+  let foodArray = JSON.parse(localStorage.getItem('foodList'));
+  // Display table on screen
+  for(i in foodArray) {
+    // Create row and cell for table
+    const row = document.createElement('tr');
+    row.setAttribute("onclick", "getItem(this);");
+    const cell1 = document.createElement('td');
+    const cell2 = document.createElement('td');
+
+    // Append cells to row
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+
+    // Insert data to cells
+    cell1.innerHTML = foodArray[i].desc;
+    cell2.innerHTML = foodArray[i].pts;
+
+    // Selet table
+    const dataTable = document.getElementById('tableBody');
+
+    // Insert constructed row to table
+    dataTable.appendChild(row);
+  };
+
+  // Select record
+  let count = 0;
+  let lineIndex;
+  let rowSelected;
+  let space1;
+  let space2;
+  function getItem(data) {
+    count += 1;
+    if (count == 1) {
+      lineIndex = data.rowIndex;
+      space1 = document.querySelector('table').rows[lineIndex].cells[0].innerHTML;
+      space2 = document.querySelector('table').rows[lineIndex].cells[1].innerHTML;
+      rowSelected = document.querySelector('table').rows[lineIndex];
+      rowSelected.style.backgroundColor = 'gray';
+    }
+  };
+
+  // Delete record
+  function deleteRow() {
+    let foodArray = JSON.parse(localStorage.getItem('foodList'));
+    foodArray.splice(lineIndex - 1, 1);    
+
+    localStorage.setItem('foodList', JSON.stringify(foodArray));
+    location.reload();
+  };  
+  
+  // Clear selection
+  function clearSelection() {
+    location.reload();
+    count = 0;
+  };
+
+
+  // ADD TO COUNT LIST
+  // ADD ITEMS TO LIST
+function addToCountList() {
+  event.preventDefault();
+
+  console.log(space1, space2);
+
+  let countArray = JSON.parse(localStorage.getItem('countList'));
+  // // if array not found create array, add item and save to localstorage else just add items
+  if (!countArray) {
+    let countArray = [];
+    countArray.push({ 
+      desc : space1,
+      pts : space2
+    });
+    localStorage.setItem('countList', JSON.stringify(countArray));
+    } else {
+    countArray.push({ 
+      desc : space1,
+      pts : space2
+    });
+    localStorage.setItem('countList', JSON.stringify(countArray));  
+    };
+  clearSelection();
+  };
+</script>
+
+</body>
+</html>

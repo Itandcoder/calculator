@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#4db6ac"/>
+  <title>Nutrition Facts Calculator</title>
+</head>
+<body>
+    
+<!--  Nutrition  -->
+
+  <h5 class ="appTitle">Nutrition Facts Calculator</h5>
+  <div id="nutritionDivision">
+  <form onsubmit="calc(this)" id="nutritionForm">
+    <p>1 Portion Value</p>
+    <label for="calories">Calories</label>
+    <input id="calories" name="calories" type="text"><br>
+    <label for="totalFat">Total Fat</label>
+    <input id="totalFat" name="totalFat" type="text"><br>
+    <label for="fiber">Fiber</label>
+    <input id="fiber" name="fiber" type="text"><br>
+    <button class="bigButton" type="button" onclick="clearPts()">Clear</button>
+    <button class="bigButton" type="button" onclick='location.href="add.html"'>Add</button>
+    <button class="bigButton" type="submit">Calc</button>
+  </form>
+  </div>
+  
+  <h1 id="nutritionPointValue">0</h1>
+
+  <button class="bigNavButton" type="button" onclick='location.href="allowance.html"'>Allowance Calc</button>
+
+  <ul id="menu">
+    <a href="index.html" style="color: white;">Calc</a>
+    <a href="list.html">List</a>
+    <a href="count.html">Count</a>
+  </ul>
+     
+  <script src="script.js"></script>
+  <script>
+    let getValuePts = localStorage.getItem('valuePts');
+    document.getElementById('nutritionPointValue').innerHTML = getValuePts;
+
+        // CALC NUTRITION FACT POINTS
+    function calc(data) {
+      // get data
+      let calories = data.calories.value;
+      let totalFat = data.totalFat.value;
+      let fiber = data.fiber.value;
+      // calculation
+      let calPts = calories / 50;
+      let fatPts = totalFat / 12;
+      let fibPts = fiber / 5;
+      let valuePts = (calPts + fatPts) - fibPts;
+      let totalValuePts = valuePts.toFixed(2)
+      // save to localstorage
+      localStorage.setItem('valuePts', totalValuePts);
+      let getValuePts = localStorage.getItem('valuePts');
+      document.getElementById('nutritionPointValue').innerHTML = getValuePts;
+    };
+
+    // CLEAR VALUEPTS
+    function clearPts() {
+      localStorage.setItem('valuePts', 0);
+      let getValuePts = localStorage.getItem('valuePts');
+      document.getElementById('nutritionPointValue').innerHTML = getValuePts;
+    };
+
+  </script>
+</body>
+</html>
