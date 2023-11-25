@@ -1,6 +1,6 @@
 {
-    "name": "Food Points",
-    "short_name": "Food Points",
+    "name": "FoodPoints",
+    "short_name": "FoodPoints",
     "start_url": "index.html",
     "display": "standalone",
     "background_color": "#4db6ac",
@@ -8,13 +8,13 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "face.png",
+            "src": "icon.png",
             "type": "image/png",
             "sizes": "144x144",
             "purpose": "any maskable"
         },
         {
-            "src": "bigface.png",
+            "src": "bigicon.png",
             "type": "image/png",
             "sizes": "512x512"
         }
