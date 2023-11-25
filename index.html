@@ -14,7 +14,6 @@
 
   <h5 class ="appTitle">Nutrition Facts Calculator</h5>
   <div id="nutritionDivision">
-  <form onsubmit="calc(this)" id="nutritionForm">
     <p>1 Portion Value</p>
     <label for="calories">Calories</label>
     <input id="calories" name="calories" type="text"><br>
@@ -24,19 +23,18 @@
     <input id="fiber" name="fiber" type="text"><br>
     <button class="bigButton" type="button" onclick="clearPts()">Clear</button>
     <button class="bigButton" type="button" onclick='location.href="add.html"'>Add</button>
-    <button class="bigButton" type="submit">Calc</button>
-  </form>
+    <button class="bigButton" type="button" onclick="calc()">Calc</button>
   </div>
   
   <h1 id="nutritionPointValue">0</h1>
 
   <button class="bigNavButton" type="button" onclick='location.href="allowance.html"'>Allowance Calc</button>
 
-  <ul id="menu">
+  <div id="menu">
     <a href="index.html" style="color: white;">Calc</a>
     <a href="list.html">List</a>
     <a href="count.html">Count</a>
-  </ul>
+  </div>
      
   <script src="script.js"></script>
   <script>
@@ -44,11 +42,11 @@
     document.getElementById('nutritionPointValue').innerHTML = getValuePts;
 
         // CALC NUTRITION FACT POINTS
-    function calc(data) {
-      // get data
-      let calories = data.calories.value;
-      let totalFat = data.totalFat.value;
-      let fiber = data.fiber.value;
+    function calc() {
+      let calories = document.getElementById('calories').value;
+      let totalFat= document.getElementById('totalFat').value;
+      let fiber = document.getElementById('fiber').value;
+      
       // calculation
       let calPts = calories / 50;
       let fatPts = totalFat / 12;
@@ -60,13 +58,13 @@
       let getValuePts = localStorage.getItem('valuePts');
       document.getElementById('nutritionPointValue').innerHTML = getValuePts;
     };
-
+      
     // CLEAR VALUEPTS
     function clearPts() {
       localStorage.setItem('valuePts', 0);
       let getValuePts = localStorage.getItem('valuePts');
       document.getElementById('nutritionPointValue').innerHTML = getValuePts;
-    };
+    }; 
 
   </script>
 </body>
