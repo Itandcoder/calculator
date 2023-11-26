@@ -160,7 +160,7 @@ a {
 tr {
     height: 1rem;
 }
-#descriptionHeader {
+.descriptionHeader {
     width: 310px;
 }
 #listButtons {
