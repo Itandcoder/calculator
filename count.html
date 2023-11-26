@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json"/>
-  <meta name="theme-color" content="#000000"/>
+
   <title>Daily Point Counter</title>
 </head>
 <body>
@@ -38,11 +37,11 @@
 
   </div>
 
-  <ul id="menu">
+  <div id="menu">
     <a href="index.html">Calc</a>
     <a href="list.html">List</a>
     <a href="count.html" style="color: white;">Count</a>
-  </ul>
+  </div>
 
 <script src="script.js"></script>
 <script>
@@ -71,6 +70,7 @@
     dataTable.appendChild(row);
   };
 
+  // Select row
   let count = 0;
   let lineIndex;
   let rowSelected;
@@ -85,6 +85,7 @@
     }
   };
 
+  // Delete row
   function deleteRow() {
     let countArray = JSON.parse(localStorage.getItem('countList'));
     countArray.splice(lineIndex - 1, 1);    
@@ -93,30 +94,40 @@
     location.reload();
   };  
   
+  // Clear selection
   function clearSelection() {
     location.reload();
     count = 0;
     resetConfirmation = 0;
     () => {resetLine.style.color = 'rgb(112, 148, 185)'};
   };
+
   // Display allowance
   let allowPtsData = localStorage.getItem('allowPts');
+  if (!allowPtsData) {
+    localStorage.setItem('allowPts', 0);
+  }
   parseFloat(allowPtsData);
   document.getElementById('dailyAllowancePts').innerHTML = allowPtsData;
 
+
+  let totalPts = 0.00;
   // Ongoing account
   let countArrayList = JSON.parse(localStorage.getItem('countList'));
-  let totaPts = 0.00;
-  for( i in countArrayList) {
-    totaPts += parseFloat(countArrayList[i]["pts"]); 
+  for (i in countArrayList) {
+    let newPts = parseFloat(countArrayList[i].pts);
+    totalPts += newPts;
+    totalPts.toFixed(2);
   }
-  document.getElementById('ongoingCount').innerHTML = totaPts;
-  if (allowPtsData < totaPts) {
+  document.getElementById('ongoingCount').innerHTML = totalPts.toFixed(2);
+  if (allowPtsData < totalPts) {
     document.getElementById('ongoingCount').style.color = 'darkred';
   }
+
+  // Rese count
   let resetConfirmation = 0;
   function resetCount() {
-    resetLine.style.color = 'rgba(255, 255, 0, 0.89)';
+    resetLine.style.color = 'darkred';
     resetConfirmation += 1;
     if (resetConfirmation == 2) {
     localStorage.setItem('countList', 0);
