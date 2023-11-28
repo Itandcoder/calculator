@@ -55,6 +55,10 @@ p {
     color: white;
 }
 
+#byRobert {
+    font-size: .5rem;
+}
+
 /* MENU */
 #menu {
     background-color: black;
